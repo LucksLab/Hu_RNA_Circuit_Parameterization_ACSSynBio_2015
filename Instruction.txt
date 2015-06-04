@@ -1,0 +1,62 @@
+Program Instruction:
+====================
+
+The following instructions outline the analysis described in Hu et al. “Generating effective models and parameters for RNA genetic circuits” ACS SynBio 2015. All cade is written in Matlab and was run using version R20011b. The governing ODEs are written to describe the three level double repression RNA cascade tested in cell-free transcription-translation (TX-TL). See the section “Load experimental Data” to adapt this code to data generated from different TXTL batches.
+
+Guessed parameters and experimental design
+—————————————————————————————————————————
+1.Start with a set of 15 parameter guesses in guess.txt, you can use the provided guesses as a start. 
+2.Open Identifiability_N_Design_Main.m, follow the input instruction, here CSTR_LV is short for “construct level”. See Figure 3 in the paper referenced above for the construct cartoon.
+
+Load experimental data:
+——————————————————————
+Load data into Exp_Data_1LV.txt; Exp_Data_2LV+3LV.txt; Exp_Data_1LV+2LV.txt; Exp_Data_3LV+2LV+1LV.txt (Use Excel and place Time (0-100min, 21 points) in the first column. Include replicate data from the 2nd column on. Save it as tab delimited text file.)
+
+Hand fitting
+———————————
+Open HandFitting_Main.m and Datafile.m. Run HandFitting_Main.m. You will get four fitting curves from this program: adjust the numbers in P_i array in guess.txt to obtain the best fit. 
+Hand Fitting guidelines:
+1. Some parameters you can only tune slightly, make sure they stay around the supplied values: P6 (=0.015~0.05), P7(~0.006), P8(~0.006),  P9(~0.002~0.004), P10 (~0.0015~0.003), P11 (>P6), P14(0.01~0.1), P15 (0.1~0.6).
+2. P4 and P5, P7 and P8, P12 and P13 are three pairs of parameters, each pair should have close values (not necessarily the same).
+3. Tune your P3, P6 and P10 first to match your first graph.
+4. Tune P4 and P5 until the two repression graphs (2 and 3) look close (smaller the numbers, stronger the repression).
+5. To match the curvature, tune P12 and P13, these two values determine when the repression would kick in in graph 2 and 3, thus it determines curvature.
+
+Find the best guesses and run Estimation:
+———————————————————————————————————————
+1. Open Find_Primary_Guess_Main.m and Analysis_func.m,
+2. Change Iter_num in Analysis_func.m. This defines how many individual simulation lines (the green solid lines) you would generate. For a test run, use 10-100.
+3. Repeat this procedure 10 times, each time the guess.txt file would be updated with a best guess. You can also see how good the fits are after each iteration, see section “Analyze your estimated parameters”.
+4. Open Main.m and Datafile.m, change “iter_num” in Datafile.m to define the size of estimation. For a test run, use 10-100. 
+5. Run Main.m, you will obtain 4 figures
+	green sold line: individual simulated curve
+	Black solid line: mean of all simulated curves
+	Black dash: one standard deviation below and above
+	blue dash: experimental Data
+	pink solid line: your initial guess
+6. Your estimated 15 parameters will be stored in a text file called P_solution.txt in the same folder.
+
+Analyze your estimated parameters:
+—————————————————————————————————
+1. Open Analysis_Main.m and Analysis_func.m, there are several drawing methods to choose from, comment out the unwanted one.
+2. Change Iter_num in Analysis_func.m. This defines how many individual simulation lines (the green solid lines) you would generate. For a test run, use 10-100.
+3. Run Analysis_Main.m, you would obtain 4 fitting figures.	
+	green sold line: individual simulated curve
+	Black solid line: mean of all simulated curves
+	Black dash: one standard deviation below and above
+	blue dash: experimental Data
+4. Your fitting Results are stored in 4 different text files DATA_CSTR_1.txt to DATA_CSTR_4.txt. Each file is the fitting result for each construct. The first row is simulated mean, 2nd and 3rd row is the simulated one stdv above and below. From the 3rd column on, those are the normalized experimental data. 
+5. Open and Run Data_histogram_Main.m, you will obtain 15 histograms, they are the distributions of your 15 parameters
+
+
+
+
+
+
+
+
+
+
+
+
+
