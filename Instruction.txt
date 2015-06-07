@@ -1,7 +1,7 @@
 Program Instruction:
 ====================
 
-The following instructions outline the analysis described in Hu et al. “Generating effective models and parameters for RNA genetic circuits” ACS SynBio 2015. All cade is written in Matlab and was run using version R20011b. The governing ODEs are written to describe the three level double repression RNA cascade tested in cell-free transcription-translation (TX-TL). See the section “Load experimental Data” to adapt this code to data generated from different TXTL batches.
+The following instructions outline the analysis described in Hu et al. “Generating effective models and parameters for RNA genetic circuits” ACS SynBio, 2015, http://dx.doi.org/10.1021/acssynbio.5b00077. All cade is written in Matlab and was run using version R20011b. The governing ODEs are written to describe the three level double repression RNA cascade tested in cell-free transcription-translation (TX-TL). See the section “Load experimental Data” to adapt this code to data generated from different TXTL batches.
 
 Guessed parameters and experimental design
 —————————————————————————————————————————
